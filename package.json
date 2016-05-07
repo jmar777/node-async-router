@@ -1,0 +1,42 @@
+{
+  "name": "node-async-router",
+  "version": "0.0.1",
+  "description": "An express-compatible middleware router (based on pillarjs/router) that accepts middleware defined as ES2016 async functions.",
+  "main": "lib/node-async-router.js",
+  "scripts": {
+    "test": "mocha --compilers js:babel-core/register"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmar777/node-async-router.git"
+  },
+  "keywords": [
+    "async",
+    "router",
+    "promises",
+    "async",
+    "functions",
+    "es7",
+    "es6",
+    "es2015",
+    "es2016",
+    "express"
+  ],
+  "author": "Jeremy Martin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jmar777/node-async-router/issues"
+  },
+  "homepage": "https://github.com/jmar777/node-async-router#readme",
+  "dependencies": {
+    "methods": "^1.1.2",
+    "router": "^1.1.4"
+  },
+  "devDependencies": {
+    "babel-core": "^6.8.0",
+    "babel-plugin-transform-async-to-generator": "^6.8.0",
+    "express": "^4.13.4",
+    "mocha": "^2.4.5",
+    "supertest": "^1.2.0"
+  }
+}
