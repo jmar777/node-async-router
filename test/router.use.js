@@ -4,7 +4,7 @@ var assert = require('assert'),
 	AsyncRouter = require('../');
 
 describe('router.use(fn)', function(){
-	it('should auto-wrap async functions', function(done) {
+	it('should support async functions', function(done) {
 		var app = express(),
 			router = AsyncRouter();
 
@@ -13,11 +13,11 @@ describe('router.use(fn)', function(){
 			next();
 		});
 
-		router.get('/', function(req, res, next) {
+		router.get('/test', function(req, res, next) {
 			res.send(req.foo);
 		});
 
-		app.use('/test', router);
+		app.use(router);
 
 		request(app)
 			.get('/test')
@@ -42,12 +42,30 @@ describe('router.use(fn)', function(){
 			done();
 		});
 
-		app.use('/test', router);
+		app.use(router);
 
-		request(app).get('/test').end(noop);
+		request(app).get('/').end(noop);
 	});
 
-	it('should support async function error handlers', function(done) {
+	it('should forward awaited promise rejections', function(done) {
+		var app = express(),
+			router = AsyncRouter();
+
+		router.use(async function(req, res, next) {
+			await Promise.reject(new Error('catch me'));
+		});
+
+		router.use(function(err, req, res, next) {
+			assert.strictEqual(err.message, 'catch me');
+			done();
+		});
+
+		app.use(router);
+
+		request(app).get('/').end(noop);
+	});
+
+	it('should allow defining error handlers with async functions', function(done) {
 		var app = express(),
 			router = AsyncRouter();
 
@@ -60,27 +78,27 @@ describe('router.use(fn)', function(){
 			done();
 		});
 
-		app.use('/test', router);
+		app.use(router);
 
-		request(app).get('/test').end(noop);
+		request(app).get('/').end(noop);
 	});
 });
 
 describe('router.use(path, fn)', function(){
-	it('should auto-wrap async functions', function(done) {
+	it('should support async functions', function(done) {
 		var app = express(),
 			router = AsyncRouter();
 
-		router.use('/', async function(req, res, next) {
+		router.use('/test', async function(req, res, next) {
 			req.foo = 'bar';
 			next();
 		});
 
-		router.get('/', function(req, res, next) {
+		router.get('/test', function(req, res, next) {
 			res.send(req.foo);
 		});
 
-		app.use('/test', router);
+		app.use(router);
 
 		request(app)
 			.get('/test')
@@ -96,8 +114,26 @@ describe('router.use(path, fn)', function(){
 		var app = express(),
 			router = AsyncRouter();
 
-		router.use('/', async function(req, res, next) {
+		router.use('/test', async function(req, res, next) {
 			throw new Error('catch me');
+		});
+
+		router.use('/test', function(err, req, res, next) {
+			assert.strictEqual(err.message, 'catch me');
+			done();
+		});
+
+		app.use(router);
+
+		request(app).get('/test').end(noop);
+	});
+
+	it('should forward awaited promise rejections', function(done) {
+		var app = express(),
+			router = AsyncRouter();
+
+		router.use('/test', async function(req, res, next) {
+			await Promise.reject(new Error('catch me'));
 		});
 
 		router.use(function(err, req, res, next) {
@@ -105,16 +141,16 @@ describe('router.use(path, fn)', function(){
 			done();
 		});
 
-		app.use('/test', router);
+		app.use(router);
 
 		request(app).get('/test').end(noop);
 	});
 
-	it('should support async function error handlers', function(done) {
+	it('should allow defining error handlers with async functions', function(done) {
 		var app = express(),
 			router = AsyncRouter();
 
-		router.use('/', async function(req, res, next) {
+		router.use('/test', async function(req, res, next) {
 			throw new Error('catch me');
 		});
 
@@ -123,7 +159,7 @@ describe('router.use(path, fn)', function(){
 			done();
 		});
 
-		app.get('/test', router);
+		app.use(router);
 
 		request(app).get('/test').end(noop);
 	});

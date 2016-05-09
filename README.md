@@ -1,10 +1,10 @@
 # node-async-router
 
 node-async-router is a patched version of [pillarjs/router](https://github.com/pillarjs/router) that
-adds support for ES2016 (ES7) async functions.
+adds support for ES2016/ES7 async functions.
 
 This module is _not_ a compiler, transpiler, shim, polyfill, or anything else that modifies your
-code or the runtime environment, so if you want to use async functions you will need to use
+code or runtime environment, so if you want to use async functions you will still need to use
 something like [Babel](https://babeljs.io/).
 
 ## Quick Example (Express)
@@ -53,7 +53,7 @@ At present, the following router APIs are extended to support async functions:
 * [`router[method](path, ...[middleware], handler)`](https://github.com/pillarjs/router#routermethodpath-middleware-handler)
 * [`router.param(name, param_middleware)`](https://github.com/pillarjs/router#routerparamname-param_middleware)
 * [`route[method](handler)`](https://github.com/pillarjs/router#routemethodhandler)
-* [`route.all(handler)`](https://github.com/pillarjs/router#routemethodhandler)
+* [`route.all(handler)`](https://github.com/pillarjs/router#routeallhandler)
 
 The API surface is well tested, but please do 
 [report any issues](https://github.com/jmar777/node-async-router/issues), however!
@@ -61,8 +61,8 @@ The API surface is well tested, but please do
 ### Error Handling
 
 Error handling behaves the same as in the [router](https://github.com/pillarjs/router) module, with
-the exception that if an async function is used and it results in a rejection (error), then that
-error is automatically passed on to `next()` on your behalf.
+the exception that if an async function is used and it resolves to a rejection (error), then that
+error is automatically passed on to `next()`.
 
 **Example:**
 
@@ -76,11 +76,11 @@ router.get('/500-me', async function(req, res, next) {
     // option 1: use next()
     return next(err);
 
-    // option 2: return it
-    return err;
-
-    // option 3: throw it
+    // option 2: throw it
     throw err;
+
+    // option 3: await on a rejected promise (without catching it)
+    var user = await somePromiseThatWillBeRejected();
 });
 
 router.use(function(err, req, res, next) {
