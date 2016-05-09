@@ -1,6 +1,6 @@
 # node-async-router
 
-node-async-router is a patched version of [pillarjs/router](https://github.com/pillarjs/router) that
+node-async-router is a wrapper around [pillarjs/router](https://github.com/pillarjs/router) that
 adds support for ES2016/ES7 async functions.
 
 This module is _not_ a compiler, transpiler, shim, polyfill, or anything else that modifies your
@@ -37,10 +37,9 @@ $ npm install node-async-router
 
 ### Overview
 
-node-async-router is a thin wrapper around the
-[router](https://github.com/pillarjs/router) module. Aside from monkey-patching in support for async
-functions as middleware, it retains 100% compatible with its preexisting API (the bulk of the work
-is still actually done by the wrapped router module).
+node-async-router is a thin wrapper around the [router](https://github.com/pillarjs/router) module.
+Aside from adding support for async functions as middleware, it retains 100% compatibility with the
+preexisting router API (the bulk of the work is still actually done by the wrapped router module).
 
 ### Features
 
@@ -80,7 +79,7 @@ router.get('/500-me', async function(req, res, next) {
     throw err;
 
     // option 3: await on a rejected promise (without catching it)
-    var user = await somePromiseThatWillBeRejected();
+    var user = await Promise.reject(err);
 });
 
 router.use(function(err, req, res, next) {
