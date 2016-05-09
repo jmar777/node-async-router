@@ -1,6 +1,6 @@
 {
   "name": "node-async-router",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A patched version of pillarjs/router that adds support for ES2016/ES7 async functions.",
   "main": "lib/node-async-router.js",
   "scripts": {
@@ -35,7 +35,6 @@
   "devDependencies": {
     "babel-core": "^6.8.0",
     "babel-plugin-transform-async-to-generator": "^6.8.0",
-    "babel-preset-stage-3": "^6.5.0",
     "express": "^4.13.4",
     "mocha": "^2.4.5",
     "supertest": "^1.2.0"
