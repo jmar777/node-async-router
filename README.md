@@ -1,6 +1,6 @@
 # node-async-router
 
-`node-async-router` is a wrapper around `[router](https://github.com/pillarjs/router)` that adds
+`node-async-router` is a wrapper around [`router`](https://github.com/pillarjs/router) that adds
 support for ES2016/ES7 [async functions](http://www.2ality.com/2016/02/async-functions.html). It can
 be used as a drop-in replacement for Express' default router, as well as for other middleware-based
 frameworks.
@@ -39,7 +39,7 @@ $ npm install node-async-router
 
 ### Overview
 
-`node-async-router` is a thin wrapper around the `[router](https://github.com/pillarjs/router)`
+`node-async-router` is a thin wrapper around the [`router`](https://github.com/pillarjs/router)
 module. Aside from adding support for async functions as middleware, it remains 100% compatible
 with the preexisting `router` API.
 
@@ -60,7 +60,7 @@ The API surface is well tested, but please do
 
 ### Error Handling
 
-Error handling behaves the same as in the `[router](https://github.com/pillarjs/router)` module,
+Error handling behaves the same as in the [`router`](https://github.com/pillarjs/router) module,
 with the exception that if an async function is used and it resolves to a rejection/error, then that
 error is automatically passed on to `next()`.
 
