@@ -1,7 +1,7 @@
 {
   "name": "node-async-router",
   "version": "0.0.3",
-  "description": "A patched version of pillarjs/router that adds support for ES2016/ES7 async functions.",
+  "description": "A drop-in replacement router with seamless support for ES2016/ES7 async functions. Compatible with Express and other middle-ware based frameworks.",
   "main": "lib/node-async-router.js",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register"
@@ -22,7 +22,7 @@
     "es2016",
     "express"
   ],
-  "author": "Jeremy Martin",
+  "author": "Jeremy Martin <jmar777@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/jmar777/node-async-router/issues"

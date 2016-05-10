@@ -1,10 +1,12 @@
 # node-async-router
 
-node-async-router is a wrapper around [pillarjs/router](https://github.com/pillarjs/router) that
-adds support for ES2016/ES7 async functions.
+`node-async-router` is a wrapper around `[router](https://github.com/pillarjs/router)` that adds
+support for ES2016/ES7 [async functions](http://www.2ality.com/2016/02/async-functions.html). It can
+be used as a drop-in replacement for Express' default router, as well as for other middleware-based
+frameworks.
 
 This module is _not_ a compiler, transpiler, shim, polyfill, or anything else that modifies your
-code or runtime environment, so if you want to use async functions you will still need to use
+code and/or runtime environment, so if you want to use async functions you will still need to use
 something like [Babel](https://babeljs.io/).
 
 ## Quick Example (Express)
@@ -37,16 +39,15 @@ $ npm install node-async-router
 
 ### Overview
 
-node-async-router is a thin wrapper around the [router](https://github.com/pillarjs/router) module.
-Aside from adding support for async functions as middleware, it retains 100% compatibility with the
-preexisting router API (the bulk of the work is still actually done by the wrapped router module).
+`node-async-router` is a thin wrapper around the `[router](https://github.com/pillarjs/router)`
+module. Aside from adding support for async functions as middleware, it remains 100% compatible
+with the preexisting `router` API.
 
 ### Features
 
-As was previously alluded to, node-async-router is designed to enable async functions to be used
-within router's existing API, and then it gets out of the way.
-
-At present, the following router APIs are extended to support async functions:
+In short, `node-async-router` lets you pass in an async function anywhere that `router` accepts
+a "normal" function as a middleware/handler definition.  More specifically, the following `router`
+APIs are supported:
 
 * [`router.use([path], ...middleware)`](https://github.com/pillarjs/router#routerusepath-middleware)
 * [`router[method](path, ...[middleware], handler)`](https://github.com/pillarjs/router#routermethodpath-middleware-handler)
@@ -55,12 +56,12 @@ At present, the following router APIs are extended to support async functions:
 * [`route.all(handler)`](https://github.com/pillarjs/router#routeallhandler)
 
 The API surface is well tested, but please do 
-[report any issues](https://github.com/jmar777/node-async-router/issues), however!
+[report any issues](https://github.com/jmar777/node-async-router/issues) if you see them!
 
 ### Error Handling
 
-Error handling behaves the same as in the [router](https://github.com/pillarjs/router) module, with
-the exception that if an async function is used and it resolves to a rejection (error), then that
+Error handling behaves the same as in the `[router](https://github.com/pillarjs/router)` module,
+with the exception that if an async function is used and it resolves to a rejection/error, then that
 error is automatically passed on to `next()`.
 
 **Example:**
