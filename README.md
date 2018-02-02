@@ -5,9 +5,7 @@ support for ES2016/ES7 [async functions](http://www.2ality.com/2016/02/async-fun
 be used as a drop-in replacement for Express' default router, as well as for other middleware-based
 frameworks.
 
-This module is _not_ a compiler, transpiler, shim, polyfill, or anything else that modifies your
-code and/or runtime environment, so if you want to use async functions you will still need to use
-something like [Babel](https://babeljs.io/).
+Requires node 8+ for async/await support, or something like [Babel](https://babeljs.io/).
 
 ## Quick Example (Express)
 
