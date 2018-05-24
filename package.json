@@ -1,6 +1,6 @@
 {
   "name": "node-async-router",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A drop-in replacement router with seamless support for ES2016/ES7 async functions. Compatible with Express and other middle-ware based frameworks.",
   "main": "lib/node-async-router.js",
   "scripts": {

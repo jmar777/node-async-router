@@ -163,6 +163,30 @@ describe('router.use(path, fn)', function(){
 
 		request(app).get('/test').end(noop);
 	});
+
+	it('should proxy all properties defined by handlers', function() {
+		middlewareA.testProperty = 'a';
+		middlewareB.testProperty = 'b';
+
+		async function middlewareA(req, res, next) {}
+		function middlewareB(req, res, next) {}
+		
+		var app = express(),
+			router = AsyncRouter(),
+			properties = [];
+
+		router.use('/test', middlewareA, middlewareB);
+		
+		app.use(router);
+
+		app._router.stack.forEach((layer) => {
+			if (layer.handle.stack) {
+				properties = properties.concat(layer.handle.stack.map(function(layer) { return layer.handle.testProperty; }));
+			}
+		});
+
+		assert.deepEqual(properties, ['a', 'b']);
+    });
 });
 
 function noop() {};
